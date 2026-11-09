@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snoooooze Readings - Internet Reading Club</title>
+
+<style>
+body {
+    background: #c0c0c0;
+    color: black;
+    font-family: "Times New Roman", serif;
+    margin: 8px;
+}
+
+header {
+    background: navy;
+    color: yellow;
+    text-align: center;
+    padding: 15px;
+    border: 4px ridge white;
+}
+
+header h1 {
+    font-size: 40px;
+    margin: 5px;
+}
+
+header p {
+    color: white;
+}
+
+marquee {
+    background: yellow;
+    color: red;
+    padding: 6px;
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+a {
+    color: blue;
+    cursor: pointer;
+}
+
+a:visited {
+    color: purple;
+}
+
+button {
+    font-family: "Times New Roman";
+    font-weight: bold;
+    background: #c0c0c0;
+    border: 3px outset white;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+button:active {
+    border-style: inset;
+}
+
+input, textarea, select {
+    font-family: "Times New Roman";
+    border: 2px inset white;
+    padding: 7px;
+    margin: 5px 0;
+    width: 95%;
+}
+
+textarea {
+    height: 160px;
+    resize: vertical;
+}
+
+nav {
+    text-align: center;
+    padding: 12px;
+    background: #eeeeee;
+    border: 2px ridge white;
+    margin: 8px 0;
+}
+
+nav a {
+    margin: 0 8px;
+    font-weight: bold;
+}
+
+table.layout {
+    width: 100%;
+}
+
+.sidebar {
+    width: 200px;
+    background: #ffffcc;
+    border: 3px ridge white;
+    padding: 12px;
+    vertical-align: top;
+}
+
+.main {
+    background: white;
+    border: 3px ridge white;
+    padding: 18px;
+    vertical-align: top;
+}
+
+.sidebar h3 {
+    color: navy;
+}
+
+.article {
+    padding: 15px 5px;
+    border-bottom: 2px dotted gray;
+}
+
+.article h2 {
+    color: navy;
+    margin-bottom: 5px;
+}
+
+.category {
+    color: green;
+    font-weight: bold;
+}
+
+.author {
+    color: #555;
+    font-size: 14px;
+}
+
+.article-text {
+    line-height: 1.5;
+}
+
+#writer {
+    display: none;
+    background: #ffffcc;
+    border: 3px ridge white;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+#reader {
+    display: none;
+    background: white;
+    border: 3px ridge white;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+#readerContent {
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.status {
+    color: green;
+    font-weight: bold;
+}
+
+footer {
+    background: navy;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.counter {
+    color: green;
+    font-weight: bold;
+}
+
+.small {
+    font-size: 12px;
+    color: gray;
+}
+
+hr {
+    border: 0;
+    border-top: 2px ridge white;
+}
+
+@media(max-width:650px) {
+    table.layout, table.layout tbody,
+    table.layout tr, table.layout td {
+        display: block;
+        width: auto;
+    }
+
+    .sidebar {
+        margin-bottom: 10px;
+    }
+
+    header h1 {
+        font-size: 29px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>★ SNOOOOOZE READINGS ★</h1>
+    <p>THE INTERNET READING CLUB</p>
+    <small>EST. 1996 - REBORN 2026</small>
+</header>
+
+<marquee scrollamount="5">
+WELCOME TO SNOOOOOZE READINGS!!! &nbsp;
+READ ARTICLES! &nbsp;
+SHARE YOUR IDEAS! &nbsp;
+BECOME A WRITER! &nbsp;
+WELCOME INTERNET EXPLORERS!
+</marquee>
+
+<nav>
+    <a href="#" onclick="showAll();return false;">HOME</a> |
+    <a href="#" onclick="showWriter();return false;">PUBLISH</a> |
+    <a href="#" onclick="showSaved();return false;">SAVED</a> |
+    <a href="#" onclick="about();return false;">ABOUT</a>
+</nav>
+
+<table class="layout" cellpadding="6">
+<tr>
+
+<td class="sidebar">
+
+<center>
+<h2>MENU</h2>
+</center>
+<hr>
+
+<h3>READ</h3>
+
+<a href="#" onclick="showAll();return false;">All Articles</a><br><br>
+<a href="#" onclick="filter('Technology');return false;">Technology</a><br><br>
+<a href="#" onclick="filter('Science');return false;">Science</a><br><br>
+<a href="#" onclick="filter('History');return false;">History</a><br><br>
+<a href="#" onclick="filter('Entertainment');return false;">Entertainment</a><br><br>
+<a href="#" onclick="filter('Education');return false;">Education</a><br><br>
+<a href="#" onclick="filter('Personal');return false;">Personal</a><br><br>
+<a href="#" onclick="filter('Other');return false;">Other</a>
+
+<hr>
+
+<h3>SEARCH</h3>
+
+<input id="search" placeholder="Find something..."
+onkeydown="if(event.key==='Enter')searchArticles()">
+
+<button onclick="searchArticles()">SEARCH!</button>
+
+<hr>
+
+<h3>WRITERS CORNER</h3>
+<p>Have something to say?</p>
+<button onclick="showWriter()">WRITE HERE!</button>
+
+<hr>
+
+<h3>WEBSITE INFO</h3>
+<p>Articles: <span id="count">0</span></p>
+<p>Visitor number:</p>
+<div class="counter" id="visitors">000001</div>
+
+<hr>
+
+<center>
+<font color="red"><b>UNDER CONSTRUCTION?</b></font>
+<p class="small">This website is always growing!</p>
+</center>
+
+</td>
+
+<td class="main">
+
+<center>
+<h2 id="heading">LATEST READINGS</h2>
+<p>Welcome to the place where everyone has something to say.</p>
+<hr>
+</center>
+
+<div id="status" class="status">CONNECTING TO DATABASE...</div>
+
+<!-- PUBLISH -->
+
+<div id="writer">
+
+<h2>NEW ARTICLE SUBMISSION</h2>
+<p>Write your thoughts and share them with everyone!</p>
+
+<form id="publishForm">
+
+<label>YOUR NAME</label>
+<input id="author" maxlength="60" required>
+
+<label>ARTICLE TITLE</label>
+<input id="title" maxlength="150" required>
+
+<label>SELECT CATEGORY</label>
+<select id="category">
+<option>Technology</option>
+<option>Science</option>
+<option>History</option>
+<option>Entertainment</option>
+<option>Education</option>
+<option>Personal</option>
+<option>Other</option>
+</select>
+
+<label>YOUR ARTICLE</label>
+<textarea id="content" maxlength="50000"
+placeholder="Start writing here..." required></textarea>
+
+<button type="submit">PUBLISH ARTICLE!</button>
+<button type="button" onclick="hideWriter()">CANCEL</button>
+
+</form>
+</div>
+
+<!-- ARTICLE READER -->
+
+<div id="reader">
+<a href="#" onclick="closeReader();return false;">&lt;&lt; BACK TO ARTICLES</a>
+<hr>
+<div id="readerContent"></div>
+<hr>
+
+<h3>COMMENTS</h3>
+<div id="comments"></div>
+
+<h3>ADD A COMMENT</h3>
+<input id="commentName" placeholder="Your name">
+<textarea id="commentText" placeholder="Write a comment..."></textarea>
+<button onclick="postComment()">POST COMMENT</button>
+</div>
+
+<!-- FEED -->
+
+<div id="feed"></div>
+
+</td>
+</tr>
+</table>
+
+<footer>
+<h2>SNOOOOOZE READINGS</h2>
+<p>A LITTLE CORNER OF THE INTERNET.</p>
+<p>Made for writers, readers and curious minds.</p>
+<hr>
+<small>Copyright 2026 Snoooooze Readings</small>
+<p>BEST VIEWED WITH A 1990s MINDSET.</p>
+</footer>
+
+<script>
+
+let articles = [];
+let saved = JSON.parse(localStorage.getItem("snoozeSaved") || "[]");
+let currentArticle = null;
+let currentView = "all";
+
+let visits = Number(localStorage.getItem("snoozeVisits") || 0) + 1;
+localStorage.setItem("snoozeVisits", visits);
+
+document.getElementById("visitors").textContent =
+    String(visits).padStart(6, "0");
+
+async function api(url, options = {}) {
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            "Content-Type": "application/json",
+            ...options.headers
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error("Server error: " + response.status);
+    }
+
+    return response.json();
+}
+
+function setStatus(message, error = false) {
+    const status = document.getElementById("status");
+    status.textContent = message;
+    status.style.color = error ? "red" : "green";
+}
+
+async function loadArticles() {
+    try {
+        articles = await api("/api/articles");
+        setStatus("DATABASE CONNECTED - " + articles.length + " ARTICLES FOUND");
+        showAll();
+    } catch (error) {
+        setStatus("DATABASE CONNECTION FAILED. IS THE SERVER RUNNING?", true);
+        document.getElementById("feed").textContent =
+            "Unable to load articles. Please refresh the page.";
+    }
+}
+
+function storeSaved() {
+    localStorage.setItem("snoozeSaved", JSON.stringify(saved));
+}
+
+function showWriter() {
+    closeReader();
+    document.getElementById("writer").style.display = "block";
+    document.getElementById("writer").scrollIntoView();
+}
+
+function hideWriter() {
+    document.getElementById("writer").style.display = "none";
+}
+
+function closeReader() {
+    document.getElementById("reader").style.display = "none";
+    currentArticle = null;
+}
+
+document.getElementById("publishForm").addEventListener("submit",
+async function(e) {
+    e.preventDefault();
+
+    const button = this.querySelector('button[type="submit"]');
+    button.disabled = true;
+
+    try {
+        await api("/api/articles", {
+            method: "POST",
+            body: JSON.stringify({
+                author: document.getElementById("author").value.trim(),
+                title: document.getElementById("title").value.trim(),
+                category: document.getElementById("category").value,
+                content: document.getElementById("content").value.trim()
+            })
+        });
+
+        this.reset();
+        hideWriter();
+
+        await loadArticles();
+
+        alert("ARTICLE SUCCESSFULLY PUBLISHED!");
+    } catch(error) {
+        alert("PUBLISH FAILED. CHECK YOUR SERVER.");
+    } finally {
+        button.disabled = false;
+    }
+});
+
+function makeButton(label, action) {
+    let button = document.createElement("button");
+    button.textContent = label;
+    button.onclick = action;
+    return button;
+}
+
+function render(list) {
+    let feed = document.getElementById("feed");
+    feed.replaceChildren();
+
+    document.getElementById("count").textContent = articles.length;
+
+    if (!list.length) {
+        let empty = document.createElement("p");
+        empty.textContent = "NO ARTICLES FOUND. BE THE FIRST WRITER!";
+        feed.appendChild(empty);
+        return;
+    }
+
+    list.forEach(a => {
+        let box = document.createElement("div");
+        box.className = "article";
+
+        let category = document.createElement("div");
+        category.className = "category";
+        category.textContent = "[" + a.category + "]";
+
+        let title = document.createElement("h2");
+        title.textContent = a.title;
+
+        let author = document.createElement("p");
+        author.className = "author";
+        author.textContent = "Written by " + a.author;
+
+        let description = document.createElement("p");
+        description.className = "article-text";
+        description.textContent =
+            a.content.slice(0, 200) +
+            (a.content.length > 200 ? "..." : "");
+
+        let actions = document.createElement("p");
+
+        actions.appendChild(
+            makeButton("READ MORE", () => readArticle(a.id))
+        );
+
+        actions.appendChild(
+            makeButton("LIKE (" + a.likes + ")", () => likeArticle(a.id))
+        );
+
+        actions.appendChild(
+            makeButton(
+                saved.includes(a.id) ? "SAVED" : "SAVE",
+                () => saveArticle(a.id)
+            )
+        );
+
+        box.append(category, title, author, description, actions);
+        feed.appendChild(box);
+    });
+}
+
+async function likeArticle(id) {
+    try {
+        await api("/api/articles/" + id + "/like", {
+            method: "POST"
+        });
+
+        await loadArticles();
+    } catch(error) {
+        alert("LIKE FAILED.");
+    }
+}
+
+function saveArticle(id) {
+    saved = saved.includes(id)
+        ? saved.filter(x => x !== id)
+        : [...saved, id];
+
+    storeSaved();
+
+    refreshCurrentView();
+}
+
+function refreshCurrentView() {
+    if (currentView === "saved") {
+        render(articles.filter(a => saved.includes(a.id)));
+    } else if (currentView === "category") {
+        filter(currentCategory);
+    } else if (currentView === "search") {
+        searchArticles();
+    } else {
+        render(articles);
+    }
+}
+
+async function readArticle(id) {
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+
+    hideWriter();
+    currentArticle = id;
+
+    const reader = document.getElementById("reader");
+    const content = document.getElementById("readerContent");
+
+    content.replaceChildren();
+
+    let heading = document.createElement("h1");
+    heading.textContent = a.title;
+
+    let author = document.createElement("p");
+    author.className = "author";
+    author.textContent = "By " + a.author + " | " + a.category;
+
+    let body = document.createElement("p");
+    body.textContent = a.content;
+
+    content.append(heading, author, document.createElement("hr"), body);
+
+    reader.style.display = "block";
+    reader.scrollIntoView();
+
+    await loadComments(id);
+}
+
+async function loadComments(id) {
+    const container = document.getElementById("comments");
+    container.replaceChildren();
+
+    try {
+        const comments = await api("/api/articles/" + id + "/comments");
+
+        if (!comments.length) {
+            container.textContent = "NO COMMENTS YET. START THE DISCUSSION!";
+        }
+
+        comments.forEach(c => {
+            let item = document.createElement("p");
+            item.textContent = c.author + ": " + c.content;
+            item.style.borderBottom = "1px dotted gray";
+            container.appendChild(item);
+        });
+    } catch(error) {
+        container.textContent = "COMMENTS COULD NOT BE LOADED.";
+    }
+}
+
+async function postComment() {
+    if (!currentArticle) return;
+
+    const name = document.getElementById("commentName").value.trim();
+    const message = document.getElementById("commentText").value.trim();
+
+    if (!name || !message) {
+        alert("ENTER YOUR NAME AND COMMENT.");
+        return;
+    }
+
+    try {
+        await api("/api/articles/" + currentArticle + "/comments", {
+            method: "POST",
+            body: JSON.stringify({
+                author: name,
+                content: message
+            })
+        });
+
+        document.getElementById("commentText").value = "";
+
+        await loadComments(currentArticle);
+    } catch(error) {
+        alert("COMMENT FAILED.");
+    }
+}
+
+function showAll() {
+    currentView = "all";
+    hideWriter();
+    closeReader();
+
+    document.getElementById("heading").textContent = "LATEST READINGS";
+
+    render(articles);
+}
+
+function showSaved() {
+    currentView = "saved";
+    closeReader();
+    hideWriter();
+
+    document.getElementById("heading").textContent = "MY SAVED READINGS";
+
+    render(articles.filter(a => saved.includes(a.id)));
+}
+
+let currentCategory = "";
+
+function filter(category) {
+    currentView = "category";
+    currentCategory = category;
+
+    closeReader();
+    hideWriter();
+
+    document.getElementById("heading").textContent =
+        category.toUpperCase() + " READINGS";
+
+    render(articles.filter(a => a.category === category));
+}
+
+function searchArticles() {
+    currentView = "search";
+    closeReader();
+
+    let q = document.getElementById("search").value.toLowerCase();
+
+    document.getElementById("heading").textContent = "SEARCH RESULTS";
+
+    render(articles.filter(a =>
+        (a.title + " " + a.author + " " + a.category + " " + a.content)
+        .toLowerCase().includes(q)
+    ));
+}
+
+function about() {
+    alert(
+        "SNOOOOOZE READINGS\n\n" +
+        "A little corner of the internet.\n\n" +
+        "Read. Write. Share."
+    );
+}
+
+loadArticles();
+
+</script>
+
+</body>
+</html>
